@@ -7,6 +7,7 @@
 #include "events.h"
 #include "tasks.h"
 #include "pic.h"
+#include "ata.h"
 
 int main(void);
 void goToVga(void);
@@ -26,13 +27,12 @@ void _start(void) {
 		init_pic();
 		println("PIC: OK!");
 		init_gdt();
-		println("GDT: OK!");
 		
 		asm("	movw $0x18, %ax \n \
 				movw %ax, %ss \n \
 				movl $0x20000, %esp");
 		
-        main();
+		main();
 }
 
 void printerr(char* str) {
@@ -53,60 +53,15 @@ void task1(void) {
 }
 
 int main(void) {
-		printstd("EternalOS DMK: GDT loaded!");
-        printerr("Some test error message");
-		printstd("Allowing Interrupts..");
-		sti;
+	printstd("GDT: OK!");
+	sti;
+	printstd("Interrupts: OK!");
+	printstd("TIC-80 ready!");
+	printstd("Going to VGA graphics mode..");
+	show_cursor();
+	while (1) { // event loop
 		
-		printstd("EternalOS DMK: Booted!");
-		
-//		printstd("EternalOS: Switching to 256-color VGA..");
-		
-//		pollEvent();
-		
-//		goToVga();
-
-		show_cursor();
-		/*
-		printstd("EternalOS: Initializing basic task..");
-		// init tss
-		struct tss default_tss;
-		default_tss.debug_flag = 0x00;
-		default_tss.io_map = 0x00;
-		default_tss.esp0 = 0x20000;
-		default_tss.ss0 = 0x18;
-		init_gdt_desc(0x30000, 0x0, 0xFF, 0x0D, &kgdt[4]);
-		init_gdt_desc(0x30000, 0x0, 0xF3, 0x0D, &kgdt[5]);
-		init_gdt_desc(0x0, 0x20,    0xF7, 0x0D, &kgdt[6]);
-		init_gdt_desc((u32) &default_tss, 0x67, 0xE9, 0x00, &kgdt[7]);
-		
-		// init tss 2
-		
-		asm("movw $0x38, %ax\
-       ltr %ax");
-		asm("movw %%ss, %0 \n \
-       movl %%esp, %1" : "=m" (default_tss.ss0), "=m" (default_tss.esp0) : );
-		asm("cli\
-            push $0x33\
-            push $0x30000 \
-            pushfl \n \
-            popl %%eax \n \
-            orl $0x200, %%eax \n \
-            and $0xffffbfff, %%eax \n \
-            push %%eax \n \
-            push $0x23 \n \
-            push $0x0 \n \
-            movl $0x20000, %0 \n \
-            movw $0x2B, %%ax \n \
-            movw %%ax, %%ds \n \
-            iret" : "=m" (default_tss.esp0) : );
-		
-		memcpy((char*) 0x30000, &task1, 100);
-		*/
-		printstd("EternalOS: Booting default task..");
-		while (1) { // event loop
-			
-		}
+	}
 }
 
 void goToVga(void) {
