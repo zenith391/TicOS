@@ -20,11 +20,11 @@ void isr_clock_int(void)
 	if (tic % 100 == 0) {
 		sec++;
 		tic = 0;
-		char buf[50];
-		numberToString(buf, 482);
-		print("number ");
-		print(buf);
-		println("ms has passed since poweron.");
+		//char buf[50];
+		//numberToString(buf, 482);
+		//print("number ");
+		//print(buf);
+		//println("ms has passed since poweron.");
 	}
 }
 

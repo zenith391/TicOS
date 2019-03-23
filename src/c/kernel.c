@@ -56,7 +56,7 @@ int main(void) {
 	printstd("GDT: OK!");
 	sti;
 	printstd("Interrupts: OK!");
-	printstd("TIC-80 ready!");
+	printstd("TicOS ready! Now the TIC-80 emulator..");
 	printstd("Going to VGA graphics mode..");
 	show_cursor();
 	

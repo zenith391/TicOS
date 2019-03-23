@@ -1,3 +1,3 @@
 @echo off
-ubuntu run make
+call build.bat
 call test

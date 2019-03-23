@@ -1,3 +1,3 @@
 @echo off
-ubuntu run make
+ubuntu run make clean all
 pause
