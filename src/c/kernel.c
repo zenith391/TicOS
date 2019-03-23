@@ -59,6 +59,11 @@ int main(void) {
 	printstd("TIC-80 ready!");
 	printstd("Going to VGA graphics mode..");
 	show_cursor();
+	
+	char buf[512];
+	char* msg = "Hello World\n";
+	memcpy((char*)buf, (char*)msg, 14);
+	ide_write(0, 2, 1, buf);
 	while (1) { // event loop
 		
 	}

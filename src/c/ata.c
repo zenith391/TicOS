@@ -1,6 +1,5 @@
 #include "types.h"
 #include "io.h"
-#include "ata.h"
 
 int ide_common(int drive, int numblock, int count)
 {
@@ -21,7 +20,7 @@ int ide_read(int drive, int numblock, int count, char *buf)
 	u16 tmpword;
 	int idx;
 
-	bl_common(drive, numblock, count);
+	ide_common(drive, numblock, count);
 	outb(0x1F7, 0x20);
 
 	/* Wait for the drive to signal that it's ready: */
@@ -41,7 +40,7 @@ int ide_write(int drive, int numblock, int count, char *buf)
 	u16 tmpword;
 	int idx;
 
-	bl_common(drive, numblock, count);
+	ide_common(drive, numblock, count);
 	outb(0x1F7, 0x30);
 
 	/* Wait for the drive to signal that it's ready: */
