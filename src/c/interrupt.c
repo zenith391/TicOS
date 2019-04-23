@@ -44,6 +44,7 @@ void isr_kbd_int(void)
 	
 	//// putcar('\n'); dump(&i, 1); putcar(' ');
 	if (i < 0x80) {
+		int offset = 0;
 		switch (i) {
 			case 0x29:
 				lshift_enable = 1;
@@ -58,7 +59,13 @@ void isr_kbd_int(void)
 				alt_enable = 1;
 				break;
 			default:
-				putcar(kbdmap[i * 4 + (lshift_enable || rshift_enable)]);
+				if (lshift_enable || rshift_enable)
+					offset = 1;
+				if (ctrl_enable)
+					offset = 2;
+				if (alt_enable)
+					offset = 3;
+				putcar(kbdmap[i * 4 + offset]);
 		}
 	} else {                /* touche relachee */
                 i -= 0x80;

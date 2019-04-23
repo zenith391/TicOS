@@ -1,6 +1,6 @@
 OBJ=kernel
 CC=gcc -nostdlib -Wall -fno-pie -m32
-BLD=kernel.o screen.o lib.o gdt.o idt.o interrupt.o int.o pic.o vga.o eio.o ata.o
+BLD=kernel.o screen.o lib.o gdt.o idt.o interrupt.o int.o pic.o vga.o eio.o ata.o events.o
 
 all: $(OBJ) move
 
